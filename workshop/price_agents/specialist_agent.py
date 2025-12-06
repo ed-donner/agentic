@@ -15,10 +15,10 @@ class SpecialistAgent(Agent):
         Set up this Agent by creating an instance of the modal class
         """
         self.log("Specialist Agent is initializing - connecting to modal")
-        Pricer = modal.Cls.from_name("pricer-service", "Pricer")
+        Pricer = modal.Cls.from_name("pricer-service-agentic", "Pricer")
         self.pricer = Pricer()
         self.log("Specialist Agent is ready")
-        
+
     def price(self, description: str) -> float:
         """
         Make a remote call to return the estimate of the price of this item

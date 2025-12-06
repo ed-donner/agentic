@@ -1,10 +1,13 @@
-# Today's Top Bargain Deal
+# Deal of the Day
 
-## iRobot Roomba j7+ Self-Emptying Robot Vacuum (Certified Refurbished)
+## Unlocked Samsung Galaxy S24 Ultra (512GB) — $586 (est. value ~$1,050)
 
-- Price: $169.00
-- Estimated true value: ~$499.50
-- Estimated savings: ~$330.50 (≈66% off)
-- Why it’s compelling: Smart mapping and obstacle avoidance, self-emptying base reduces maintenance, and certified refurbished status offers strong value versus new.
+- Model: SM-S928U, unlocked
+- Key specs: Snapdragon 8 Gen 3, 6.8" Dynamic AMOLED 2X, up to 12GB RAM, 200MP camera system, Galaxy AI features
+- Condition: Unlocked 512GB configuration (see seller listing for specifics)
+- Estimated savings: ~$464 (≈44% off)
+- Link: https://www.dealnews.com/products/Samsung/Unlocked-Samsung-Galaxy-S24-Ultra-512-GB-Android-Smartphone/464158.html?iref=rss-c142
+- Source: DealNews
+- Date: 2025-12-06
 
-Deal link: https://www.dealnews.com/products/iRobot/iRobot-Roomba-j7-Self-Emptying-Robot-Vacuum/455442.html?iref=rss-f1912
+Why this is compelling: This is a flagship-tier phone with top-end specs priced hundreds below its typical market value, making it an exceptional performance-per-dollar buy.
