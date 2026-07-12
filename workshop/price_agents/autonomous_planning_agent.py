@@ -75,7 +75,7 @@ def notify_user_of_deal(
 class AutonomousPlanningAgent(BaseAgent):
     name = "Autonomous Planning Agent"
     color = BaseAgent.GREEN
-    MODEL = "gpt-5.5"
+    MODEL = "gpt-5.6-terra"
 
     def __init__(self, collection):
         """
