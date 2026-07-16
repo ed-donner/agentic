@@ -2,7 +2,7 @@ import os
 import json
 from typing import Optional, List
 from openai import OpenAI
-from price_agents.deals import ScrapedDeal, DealSelection
+from price_agents.deals import ScrapedDeal, DealSelection, Opportunity
 from price_agents.agent import Agent
 
 
@@ -37,7 +37,7 @@ class ScannerAgent(Agent):
         self.openai = OpenAI()
         self.log("Scanner Agent is ready")
 
-    def fetch_deals(self, memory) -> List[ScrapedDeal]:
+    def fetch_deals(self, memory: List[Opportunity]) -> List[ScrapedDeal]:
         """
         Look up deals published on RSS feeds
         Return any new deals that are not already in the memory provided
@@ -58,11 +58,11 @@ class ScannerAgent(Agent):
         user_prompt += self.USER_PROMPT_SUFFIX
         return user_prompt
 
-    def scan(self, memory: List[str] = []) -> Optional[DealSelection]:
+    def scan(self, memory: List[Opportunity] = []) -> Optional[DealSelection]:
         """
         Call OpenAI to provide a high potential list of deals with good descriptions and prices
         Use StructuredOutputs to ensure it conforms to our specifications
-        :param memory: a list of URLs representing deals already raised
+        :param memory: a list of Opportunities already raised
         :return: a selection of good deals, or None if there aren't any
         """
         scraped = self.fetch_deals(memory)
@@ -85,7 +85,7 @@ class ScannerAgent(Agent):
             return result
         return None
 
-    def test_scan(self, memory: List[str] = []) -> Optional[DealSelection]:
+    def test_scan(self, memory: List[Opportunity] = []) -> Optional[DealSelection]:
         """
         Return a test DealSelection, to be used during testing
         """

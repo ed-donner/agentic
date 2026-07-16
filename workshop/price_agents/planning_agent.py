@@ -1,6 +1,6 @@
 from typing import Optional, List
 from price_agents.agent import Agent as BaseAgent
-from price_agents.deals import ScrapedDeal, DealSelection, Deal, Opportunity
+from price_agents.deals import Deal, Opportunity
 from price_agents.scanner_agent import ScannerAgent
 from price_agents.frontier_agent import FrontierAgent
 from price_agents.specialist_agent import SpecialistAgent
@@ -10,7 +10,7 @@ from price_agents.messaging_agent import MessagingAgent
 class PlanningAgent(BaseAgent):
 
     name = "Planning Agent"
-    color = Agent.GREEN
+    color = BaseAgent.GREEN
     DEAL_THRESHOLD = 50
 
     def __init__(self, collection):
@@ -38,7 +38,7 @@ class PlanningAgent(BaseAgent):
         self.log(f"Planning Agent has processed a deal with discount ${discount:.2f}")
         return Opportunity(deal=deal, estimate=estimate, discount=discount)
 
-    def plan(self, memory: List[str] = []) -> Optional[Opportunity]:
+    def plan(self, memory: List[Opportunity] = []) -> Optional[Opportunity]:
         """
         Run the full workflow:
         1. Use the ScannerAgent to find deals from RSS feeds
@@ -46,7 +46,7 @@ class PlanningAgent(BaseAgent):
         3. Use the MessagingAgent to send a notification of deals
         We could have an LLM come up with this workflow, providing it with the Tools for each step
         But that would be overkill in this case as the workflow is simple and fixed; no intelligent triaging is required.
-        :param memory: a list of URLs that have been surfaced in the past
+        :param memory: a list of Opportunities that have been surfaced in the past
         :return: an Opportunity if one was surfaced, otherwise None
         """
         self.log("Planning Agent is kicking off a run")

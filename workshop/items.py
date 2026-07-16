@@ -13,8 +13,7 @@ class Item:
     An Item is a cleaned, curated datapoint of a Product with a Price
     """
 
-    # This line is commented out as we don't directly use the tokenizer in this class
-    # tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, trust_remote_code=True)
+    tokenizer = None
     
     PREFIX = "Price is $"
     QUESTION = "How much does this cost to the nearest dollar?"
@@ -33,6 +32,14 @@ class Item:
         self.title = data['title']
         self.price = price
         self.parse(data)
+
+    @classmethod
+    def get_tokenizer(cls):
+        if cls.tokenizer is None:
+            cls.tokenizer = AutoTokenizer.from_pretrained(
+                BASE_MODEL, trust_remote_code=True
+            )
+        return cls.tokenizer
 
     def scrub_details(self):
         """
@@ -71,10 +78,11 @@ class Item:
         if len(contents) > MIN_CHARS:
             contents = contents[:CEILING_CHARS]
             text = f"{self.scrub(self.title)}\n{self.scrub(contents)}"
-            tokens = self.tokenizer.encode(text, add_special_tokens=False)
+            tokenizer = self.get_tokenizer()
+            tokens = tokenizer.encode(text, add_special_tokens=False)
             if len(tokens) > MIN_TOKENS:
                 tokens = tokens[:MAX_TOKENS]
-                text = self.tokenizer.decode(tokens)
+                text = tokenizer.decode(tokens)
                 self.make_prompt(text)
                 self.include = True
 
@@ -82,9 +90,10 @@ class Item:
         """
         Set the prompt instance variable to be a prompt appropriate for training
         """
+        tokenizer = self.get_tokenizer()
         self.prompt = f"{self.QUESTION}\n\n{text}\n\n"
         self.prompt += f"{self.PREFIX}{str(round(self.price))}.00"
-        self.token_count = len(self.tokenizer.encode(self.prompt, add_special_tokens=False))
+        self.token_count = len(tokenizer.encode(self.prompt, add_special_tokens=False))
 
     def test_prompt(self):
         """

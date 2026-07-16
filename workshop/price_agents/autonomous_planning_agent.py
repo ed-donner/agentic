@@ -130,10 +130,10 @@ Then just respond OK to indicate success.
             reply = await Runner.run(agent, self.task)
         return reply.final_output
 
-    def plan(self, memory: List[str] = []) -> Optional[Opportunity]:
+    def plan(self, memory: List[Opportunity] = []) -> Optional[Opportunity]:
         """
         Run the full workflow, providing the LLM with tools to surface scraped deals to the user
-        :param memory: a list of URLs that have been surfaced in the past
+        :param memory: a list of Opportunities that have been surfaced in the past
         :return: an Opportunity if one was surfaced, otherwise None
         """
         self.log("Autonomous Planning Agent is kicking off a run")

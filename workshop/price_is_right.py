@@ -28,13 +28,19 @@ def html_for(log_data):
 
 
 def setup_logging(log_queue):
+    logger = logging.getLogger()
+    logger.handlers = [
+        handler for handler in logger.handlers
+        if not getattr(handler, "_agentic_ui_handler", False)
+    ]
+
     handler = QueueHandler(log_queue)
+    handler._agentic_ui_handler = True
     formatter = logging.Formatter(
         "[%(asctime)s] %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S %z",
     )
     handler.setFormatter(formatter)
-    logger = logging.getLogger()
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 

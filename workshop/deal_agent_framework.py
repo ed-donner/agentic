@@ -3,6 +3,7 @@ import sys
 import logging
 import json
 from typing import List, Optional
+from pathlib import Path
 from dotenv import load_dotenv
 import chromadb
 from price_agents.autonomous_planning_agent import AutonomousPlanningAgent
@@ -23,9 +24,13 @@ COLORS = ['red', 'blue', 'brown', 'orange', 'yellow', 'green' , 'purple', 'cyan'
 def init_logging():
     root = logging.getLogger()
     root.setLevel(logging.INFO)
-    
+
+    if any(getattr(handler, "_agentic_framework_handler", False) for handler in root.handlers):
+        return
+
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.INFO)
+    handler._agentic_framework_handler = True
     formatter = logging.Formatter(
         "[%(asctime)s] [Agents] [%(levelname)s] %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S %z",
@@ -35,8 +40,9 @@ def init_logging():
 
 class DealAgentFramework:
 
-    DB = "products_vectorstore"
-    MEMORY_FILENAME = "memory.json"
+    BASE_DIR = Path(__file__).resolve().parent
+    DB = str(BASE_DIR / "products_vectorstore")
+    MEMORY_FILENAME = str(BASE_DIR / "memory.json")
 
     def __init__(self):
         init_logging()
